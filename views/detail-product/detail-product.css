@@ -1,0 +1,183 @@
+/* BODY */
+
+body {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+.fa-solid {
+  margin: 0 0.3em;
+}
+
+/* HEADER - NAV */
+
+header {
+  font-weight: 900;
+  background-color: var(--primary);
+  position: sticky;
+  top: 0;
+  width: 100vw;
+  height: 3em;
+}
+
+nav {
+  width: 50%;
+  height: 100%;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  align-content: center;
+  justify-content: space-around;
+}
+
+a {
+  padding: 1em;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  align-content: center;
+  justify-content: center;
+}
+
+/* MAIN */
+
+main {
+  width: 60%;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+section {
+  display: flex;
+}
+
+.img-cont {
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+
+img {
+  background-color: var(--text);
+  padding: 0 2em;
+  width: 100%;
+}
+
+.txt-cont {
+  text-align: center;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 1em;
+}
+
+.title {
+  font-size: 2.5em;
+  padding: .5em;
+}
+
+.up {
+  display: flex;
+  justify-content: center;
+}
+
+.price {
+  margin: 1em;
+  font-weight: 900;
+  font-size: 1.5em;
+}
+
+.add {
+  background-color: var(--primary);
+  border: none;
+  width: 8em;
+  height: 2.5em;
+  align-self: center;
+  font-weight: 900;
+}
+
+.add:hover {
+  background-color: #2f4b53;;
+}
+
+/* FOOTER */
+
+footer {
+  display: flex;
+  background-color: var(--primary);
+  width: 100vw;
+  justify-content: space-evenly;
+  align-items: center;
+  margin-top: auto;
+  flex-wrap: wrap;
+}
+
+.info {
+  display: flex;
+  flex-basis: 100vw;
+}
+
+.phone,
+.email,
+.about {
+  flex-grow: 1;
+  text-align: center;
+  align-self: center;
+}
+
+.copy {
+  display: flex;
+  width: 100vw;
+  justify-content: center;
+  align-items: center;
+  background-color: #2f4b53;
+}
+
+.copyright {
+  align-self: center;
+  padding: 0.1em 0.3em;
+}
+
+.f-item {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 0.2em 1em;
+}
+
+/* TABLETS */
+
+@media only screen and (max-width: 950px) {
+  nav {
+    width: 75%;
+  }
+
+  main {
+    width: 48%;
+  }
+
+  section {
+    flex-direction: column;
+    padding: 1em;
+  }
+}
+
+/* SMARTPHONES */
+
+@media only screen and (max-width: 500px) {
+  nav {
+    width: 100%;
+  }
+
+  main {
+    width: 100%;
+  }
+
+  section {
+    flex-direction: column;
+    padding: 1em;
+  }
+}
