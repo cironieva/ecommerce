@@ -1,39 +1,36 @@
-// REQUERIR EXPRESS, DECLARAR APP Y PORT
-
+// REQUIREMENTS
 const express = require('express');
 const app = express();
+
+// SERVER INIT
 const PORT = 3000;
+app.listen(PORT, () => console.log(`Server on port ${PORT}`));
 
-// CREAR MENSAJE EN CONSOLA
+// STATIC FILES
+app.use(express.static('public'));
 
-app.listen(PORT, () => console.log('escuchando en el puerto', PORT));
+// SET VIEWS
+app.set('views', __dirname + '/views');
+app.set('view engine', 'ejs');
 
-// REQUERIR PATH
+// ROUTING
+const cart = require('./routes/cart');
+app.use(cart);
 
-const path = require('path');
+const dp = require('./routes/detail-product');
+app.use(dp);
 
-// HACER EL ROUTING DE CADA PAGINA
+const home = require('./routes/index');
+app.use(home);
 
-app.get('/',(req, res) => {
-  res.sendFile(path.join(__dirname, '../views/home/index.html'));
-});
+const login = require('./routes/login');
+app.use(login);
 
-
-app.get('/login', (req, res) => {
-  res.sendFile(path.join(__dirname, '../views/login/login.html'));
-});
-
-
-app.get('/register', (req, res) => {
-  res.sendFile(path.join(__dirname, '../views/register/register.html'));
-});
-
-
-app.get('/cart', (req, res) => {
-  res.sendFile(path.join(__dirname, '../views/cart/cart.html'));
-});
+const register = require('./routes/register');
+app.use(register);
 
 
-app.get('/detail-product', (req, res) => {
-  res.sendFile(path.join(__dirname, '../views/detail-product/detail-product.html'));
+
+app.get('/prueba', (req, res) => {
+  res.render('prueba');
 });
