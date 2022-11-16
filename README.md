@@ -1,4 +1,5 @@
 # STR: guitar shop
 ## unificación de los sprint 2 y 3
 
-### No renderiza css
+### Ya renderiza css
+### Sprint 3 trabajo 3 terminado
