@@ -1,0 +1,24 @@
+[
+  {
+    "id": 0,
+    "name": "Gibson Modern Collection Les Paul",
+    "description": "Beatiful Gibson LP guitar",
+    "price": 525.959
+  },
+  {
+    "id": 1,
+    "name": "Fender Player Stratocaster",
+    "description": "Beatiful Fender strat guitar",
+    "price": 466.550
+  },{
+    "id": 2,
+    "name": "Prs Se Series Custom",
+    "description": "Beatiful PRS custom guitar",
+    "price": 532.627
+  },{
+    "id": 3,
+    "name": "Ibanez GB10SE brown sunburst",
+    "description": "Beatiful Ibanez GB guitar",
+    "price": 536.250
+  }
+]

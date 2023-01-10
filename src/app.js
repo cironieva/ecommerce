@@ -1,36 +1,55 @@
 // REQUIREMENTS
+
+// express
 const express = require('express');
 const app = express();
 
+// body-parser
+const bodyParser = require('body-parser');
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+
+// cookie-parser
+const cookieParser = require('cookie-parser');
+app.use(cookieParser());
+
+// express-session
+let session = require('express-session');
+const mins15 = 1000 * 60 * 15;
+app.use(session({
+  secret: '123456',
+  saveUninitialized: true,
+  cookie: {maxAge: mins15},
+  resave: false
+}));
+
+
 // SERVER INIT
 const PORT = 3000;
-app.listen(PORT, () => console.log(`Server on port ${PORT}`));
+app.listen(PORT, console.log('Server on port:', PORT));
+
 
 // STATIC FILES
-app.use(express.static('public'));
+app.use(express.static(__dirname + '/../public'));
 
 // SET VIEWS
 app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
 
+
 // ROUTING
-const cart = require('./routes/cart');
-app.use(cart);
 
-const dp = require('./routes/detail-product');
-app.use(dp);
+// Cart
+app.use(require('./routes/cart'));
 
-const home = require('./routes/index');
-app.use(home);
+// Detail Product
+app.use(require('./routes/detail-product'));
 
-const login = require('./routes/login');
-app.use(login);
+// Home
+app.use(require('./routes/index'));
 
-const register = require('./routes/register');
-app.use(register);
+// Login
+app.use(require('./routes/login'));
 
-
-
-app.get('/prueba', (req, res) => {
-  res.render('prueba');
-});
+// Register
+app.use(require('./routes/register'));

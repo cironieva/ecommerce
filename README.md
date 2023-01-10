@@ -1,5 +1,18 @@
 # STR: guitar shop
-## unificación de los sprint 2 y 3
-
-### Ya renderiza css
-### Sprint 3 trabajo 3 terminado
+***
+## Errores sin solucionar
+* En la ruta '/detail-product/:id' no renderiza css
+***
+## Trabajos terminados:
+* HTML y CSS 1
+* HTML y CSS 2
+* HTML y CSS 3
+* Back-end 1
+* Back-end 2
+* Back-end 3
+***
+## Trabajos sin terminar:
+* Bases de datos 1
+* Bases de datos 2
+* Front-end 1
+* Front-end 2

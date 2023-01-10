@@ -1,9 +1,21 @@
-const {Router} = require('express');
+// REQUIREMENTS
 
+// Router
+const {Router} = require('express');
 const router = Router();
 
-router.get('/cart', (req, res) => {
-  res.render('cart', { css: 'cart', title: 'Cart'});
-});
+// Controllers
+const {getCartController} = require('../controller/cart');
 
+
+// ROUTES
+
+// get
+router.get(
+  '/cart',
+  getCartController
+);
+
+
+// EXPORTS
 module.exports = router;

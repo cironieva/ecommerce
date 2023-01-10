@@ -1,9 +1,30 @@
-const {Router} = require('express');
+// REQUIREMENTS
 
+// Router
+const {Router} = require('express');
 const router = Router();
 
-router.get('/login', (req, res) => {
-  res.render('login', { css: 'login', title: 'Login'});
-});
+// Middleware
+const postLoginMiddle = require('../middleware/login');
 
+// Controllers
+const {getLoginController, postLoginController} = require('../controller/login');
+
+
+// ROUTES
+
+// get
+router.get(
+  '/login',
+  getLoginController
+);
+
+// post
+router.post(
+  '/login',
+  postLoginMiddle,
+  postLoginController
+);
+
+// EXPORTS
 module.exports = router;

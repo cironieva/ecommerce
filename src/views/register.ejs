@@ -1,15 +1,11 @@
-<%- include('./partials/head') %>
-<%- include('./partials/header') %>
-    <main>
-      <form>
-        <input type="text" placeholder="Name" />
-        <input type="text" placeholder="Last name" />
+<%- include('./partials/head') %> <%- include('./partials/header') %>
+<main>
+  <form method="post">
+    <input type="text" placeholder="Name" name="name" />
+    <input type="email" placeholder="Email" name="email" />
+    <input type="password" placeholder="Password" name="password" />
+    <input type="submit" class="submit" value="Register" />
+  </form>
+</main>
 
-        <input type="email" placeholder="Email" />
-        <input type="password" placeholder="Password" />
-        <input type="password" placeholder="Confirm password" />
-        <input type="submit" class="submit" value="Register" />
-      </form>
-    </main>
-    
-<%- include('./partials/footer') %> 
+<%- include('./partials/footer') %>

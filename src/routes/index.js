@@ -1,9 +1,21 @@
-const {Router} = require('express');
+// REQUIREMENTS
 
+// Router
+const {Router} = require('express');
 const router = Router();
 
-router.get('/', (req, res) => {
-  res.render('index', { css: 'index', title: 'Home'});
-});
+// Controllers
+const {getIndexController} = require('../controller/index');
 
+
+// ROUTES
+
+// get
+router.get(
+  '/',
+  getIndexController
+);
+
+
+// EXPORTS
 module.exports = router;

@@ -1,9 +1,26 @@
-const {Router} = require('express');
+// REQUIREMENTS
 
+// Router
+const {Router} = require('express');
 const router = Router();
 
-router.get('/detail-product', (req, res) => {
-  res.render('detail-product', { css: 'detail-product', title: 'Detail Product'});
-});
+// Middleware
+const getDpMiddle = require('../middleware/detail-product');
 
+// Controllers
+const {getDpController} = require('../controller/detail-product');
+
+
+
+// ROUTES
+
+// get
+router.get(
+  '/detail-product/:id',
+  getDpMiddle,
+  getDpController
+);
+
+
+// EXPORTS
 module.exports = router;
