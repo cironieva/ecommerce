@@ -53,3 +53,9 @@ app.use(require('./routes/login'));
 
 // Register
 app.use(require('./routes/register'));
+
+// Products
+app.use(require('./routes/products'));
+
+// Users
+app.use(require('./routes/users'));
