@@ -1,0 +1,139 @@
+<script id="script">
+  const cart = JSON.parse(localStorage.getItem("cart"));
+
+  const addElements = () => {
+    const main = document.getElementById("main");
+
+    // DENTRO DE MAIN, CREAR UN SECTION CON CLASS SECTION
+    const section = document.createElement("section");
+    section.classList.add("section");
+    section.id = "section" + [i];
+    main.appendChild(section);
+
+    // DENTRO, CREAR UN DIV CON CLASS IMG-CONT
+    const div1 = document.createElement("div");
+    div1.classList.add("img-cont");
+    section.appendChild(div1);
+
+    // DENTRO, CREAR UN IMG
+    const img = document.createElement("img");
+    img.src =
+      "http://kingofeights.com/wp-content/plugins/slider/images/icon-img.png";
+    div1.appendChild(img);
+
+    // AL NIVEL DEL SECTION, CREAR OTRO DIV CON CLASS TXT-CONT
+    const div2 = document.createElement("div");
+    div2.classList.add("txt-cont");
+    section.appendChild(div2);
+
+    // DENTRO CREAR UN H2 CON ID NAME Y CLASS TITLE, Y EL SPAN
+    const h2 = document.createElement("h2");
+    h2.classList.add("title");
+    h2.innerHTML = cart[i].name + " (x" + "<span id='span" + [i] + "'>1</span>" + ")"
+    div2.appendChild(h2);
+
+    // TAMBIÉN UN P ID PRICE CLASS PRICE
+    const p = document.createElement("p");
+    p.innerHTML = "$ " + cart[i].price;
+    p.classList.add("price");
+    p.id = "price" + [i];
+    div2.appendChild(p);
+
+    // TAMBIÉN UN BOTÓN PARA SUMAR
+    const btn1 = document.createElement("button");
+    btn1.id = "subtract" + [i];
+    btn1.classList.add("add-rest");
+    btn1.innerHTML = "- 1";
+    div2.appendChild(btn1);
+
+    // Y UN BOTÓN PARA RESTAR
+    const btn2 = document.createElement("button");
+    btn2.id = "add" + [i];
+    btn2.classList.add("add-rest");
+    btn2.innerHTML = "+ 1";
+    div2.appendChild(btn2);
+  };
+
+  for (i = 0; i < cart.length; i++) {
+    addElements();
+  }
+
+  const addAside = () => {
+    const body = document.querySelector("body");
+
+    const aside = document.createElement("aside");
+    body.appendChild(aside);
+
+    const totalTxt = document.createElement("p");
+    totalTxt.classList.add("total1");
+    totalTxt.innerHTML = "Total:";
+    aside.appendChild(totalTxt);
+
+    const totalNum = document.createElement("p");
+    totalNum.classList.add("total2");
+    totalNum.id = "total";
+    totalNum.innerHTML = "$ " + 123;
+    aside.appendChild(totalNum);
+
+    const buyBtn = document.createElement("button");
+    buyBtn.classList.add("buy");
+    buyBtn.innerHTML = "BUY NOW";
+    aside.appendChild(buyBtn);
+
+    const clearBtn = document.createElement("button");
+    clearBtn.classList.add("clear");
+    clearBtn.id = "clear";
+    clearBtn.innerHTML = "CLEAR CART";
+    aside.appendChild(clearBtn);
+  };
+
+  addAside();
+
+  const addBtn = document.getElementById("add" + [i]);
+  const subtractBtn = document.getElementById("subtract" + [i]);
+  const clearBtn = document.getElementById("clear");
+  
+  
+  
+  
+  
+  const total = document.getElementById("total");
+  const totalNum = Number(total.innerHTML.slice(2));
+  
+  const cartNode = document.getElementById("main");
+  
+  const originalPriceNum = Number(document.getElementById("price" + [i]).innerHTML.slice(2));
+
+  // EVENTS
+
+  addBtn.addEventListener("click", () => {
+    let span = document.getElementById("span" + [i]);
+    let spanNum = Number(span.innerHTML);
+    span.innerHTML = spanNum + 1;
+
+    let price = document.getElementById("price" + [i]);
+    let priceNum = Number(price.innerHTML.slice(2));
+    price.innerHTML = "$ " + originalPriceNum * span.innerHTML;
+    
+  });
+
+  subtractBtn.addEventListener("click", () => {
+    const section = document.getElementById("section" + [i]);
+    
+    let span = document.getElementById("span" + [i]);
+    let spanNum = Number(span.innerHTML);
+    span.innerHTML = spanNum - 1;
+
+    let price = document.getElementById("price" + [i]);
+    let priceNum = Number(price.innerHTML.slice(2));
+    price.innerHTML = "$ " + originalPriceNum * span.innerHTML;
+
+    if (spanNum == 1) {
+      section.classList.add("disappear");
+      priceNum = 0;
+      
+    };
+  });
+
+  
+</script>

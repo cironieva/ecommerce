@@ -1,10 +1,8 @@
-// REQUIREMENTS
-
 // CONTROLLERS
 
 // GET cart
 const getCartController = (req, res) => {
-  res.render('cart', { css: 'cart', title: 'Cart'});
+  res.render('cart', { css: 'cart', title: 'Cart' });
 };
 
 module.exports = {

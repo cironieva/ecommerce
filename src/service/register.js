@@ -1,25 +1,19 @@
 // REQUIREMENTS
 
-// file system
-const fs = require('fs');
-
-// user list
-const { readUsers } = require('../service/read');
-const userList = readUsers();
+// models
+const users = require('../../models').users;
 
 
 // SERVICES
 
-// post login service
-const postLoginService = (name, email, password) => {
-  const newUser = {
+// post register service
+const postRegisterService = (name, email, hash) => {
+  return users.create({
     name,
     email,
-    hash: password
-  }
-  userList.push(newUser);
-  fs.writeFileSync(__dirname + '/../database/userList.json', JSON.stringify(userList));
+    hash
+  });
 };
 
 // EXPORTS
-module.exports = postLoginService;
+module.exports = postRegisterService;

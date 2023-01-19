@@ -1,39 +1,210 @@
-<%- include('./partials/head') %>
-<%- include('./partials/header') %>
+<%- include('./partials/head') %> <%- include('./partials/header') %>
 
-    <main>
-      <section class="section">
-        
-        <div class="img-cont">
-          <img src="http://kingofeights.com/wp-content/plugins/slider/images/icon-img.png"/>
-        </div>
-          
-        <div class="txt-cont">
-          <h2 class="title">Gibson Modern Collection Les Paul (x1)</h2>
-          <p class="price">$525.959</p>
-          <button class="add-rest">- 1</button>
-          <button class="add-rest">+ 1</button>
-        </div>
-      </section>
+<main id="main"></main>
+
+<script>
+  let cart = JSON.parse(localStorage.getItem("cart"));
+  
+  if (!cart || cart == []) {
+    const addToCart = document.createElement("h1");
+    addToCart.classList.add("addToCart");
+    addToCart.innerHTML="Añade productos al carrito para poder utilizarlo";
+    const body = document.querySelector("body");
+    const footer = document.getElementById("footer");
+    body.insertBefore(addToCart, footer);
+  };
+  
+  const main = document.getElementById("main");
+
+  const addElements = () => {
+
+    for (i=0; i < cart.length; i++) {
+      const section = document.createElement("section");
+      section.id = "section" + [i];
+      section.classList.add("section");
+      main.appendChild(section);
+
+      const div1 = document.createElement("div");
+      div1.classList.add("img-cont");
+      section.appendChild(div1);
+
+      const img = document.createElement("img");
+      img.src = "http://kingofeights.com/wp-content/plugins/slider/images/icon-img.png";
+      div1.appendChild(img);
       
-      <section class="section">
-        <div class="img-cont">
-          <img src="http://kingofeights.com/wp-content/plugins/slider/images/icon-img.png"/>
-        </div>
-        
-        <div class="txt-cont">
-          <h2 class="title">Fender Player Stratocaster (x1)</h2>
-          <p class="price">$466.550</p>
-          <button class="add-rest">- 1</button>
-          <button class="add-rest">+ 1</button>
-        </div>
-      </section>
-      
-      <aside>
-        <p class="total">Total: $ 992.509</p>
-        <button class="buy">BUY NOW</button>
-      </aside>
+      const div2 = document.createElement("div");
+      div2.classList.add("txt-cont");
+      section.appendChild(div2);
+
+      const h2 = document.createElement("h2");
+      h2.classList.add("title");
+      h2.innerHTML = cart[i].name + " (x" + "<span id='span" + [i] + "'>1</span>" + ")"
+      div2.appendChild(h2);
+
+      const p = document.createElement("p");
+      p.id = "price" + [i];
+      p.classList.add("price");
+      p.innerHTML = "$ " + cart[i].price;
+      div2.appendChild(p);
+
+
+      const btn1 = document.createElement("button");
+      btn1.id = "subtract" + [i];
+      btn1.classList.add("add-rest");
+      btn1.innerHTML = "- 1";
+      div2.appendChild(btn1);
+
+      const btn2 = document.createElement("button");
+      btn2.id = "add" + [i];
+      btn2.classList.add("add-rest");
+      btn2.innerHTML = "+ 1";
+      div2.appendChild(btn2);
+    };
+  };
+
+  addElements();
+
+  const originalPrice = () => {
+
+    let list = [];
     
-    </main>
+    for (i=0; i < cart.length; i++) {
+      
+      
+      let originalPriceNum = Number(document.getElementById("price" + [i]).innerHTML.slice(2));
+
+      list.push(originalPriceNum);
+
+      
+    };
+
+    return list;
+  };
+
+  
+
+  const funciones = () => {
+    
+    const oPriceList = originalPrice()
+
+    for (i=0; i < cart.length; i++) {
+      
+      const originalPriceNum = oPriceList[i]
+      
+      const addBtn = document.getElementById("add" + [i]);
+      const subtractBtn = document.getElementById("subtract" + [i]);
+
+      let span = document.getElementById("span" + [i]);
+
+      let price = document.getElementById("price" + [i]);
+      
+      addBtn.addEventListener("click", () => {
+        
+        let spanNum = Number(span.innerHTML);
+        span.innerHTML = spanNum + 1;
+
+        let priceNum = Number(price.innerHTML.slice(2));
+        price.innerHTML = "$ " + originalPriceNum * span.innerHTML;
+
+        let totalNum = document.getElementById("total")
+        totalNum.innerHTML = "$ " + totalPrice();
+      });
+
+      const section = document.getElementById("section" + [i]);
+      const index = [i]
+
+      subtractBtn.addEventListener("click", () => {
+        let spanNum = Number(span.innerHTML);
+        span.innerHTML = spanNum - 1;
+        let priceNum = Number(price.innerHTML.slice(2));
+        price.innerHTML = "$ " + originalPriceNum * span.innerHTML;
+
+        if (spanNum == 1) {
+          section.classList.add("disappear");
+          priceNum = 0;
+          console.log(priceNum);
+
+          cart.splice(index, 1);
+
+          localStorage.setItem("cart", JSON.stringify(cart))
+        };
+
+        let totalNum = document.getElementById("total")
+        totalNum.innerHTML = "$ " + totalPrice();
+      }); 
+    };
+  };
+
+   funciones();
+
+// ASIDE
+const totalPrice = () => {
+  let list = [];
+  
+  for (i=0; i < cart.length; i++) {
+    const price1 = document.getElementById("price" + [i]);
+    const price2 = Number(price1.innerHTML.slice(2));
+    list.push(price2);
+  };
+
+  
+  let sum = 0;
+
+  for (let i = 0; i < list.length; i++) {
+      sum += list[i];
+  }
+  return sum;
+};
+  
+
+
+const body = document.querySelector("body");
+
+const aside = document.createElement("aside");
+aside.id="aside";
+body.appendChild(aside);
+
+const totalTxt = document.createElement("p");
+totalTxt.classList.add("total1");
+totalTxt.innerHTML = "Total:";
+aside.appendChild(totalTxt);
+
+let totalNum = document.createElement("p");
+totalNum.classList.add("total2");
+totalNum.id = "total";
+totalNum.innerHTML = "$ " + totalPrice();
+aside.appendChild(totalNum);
+
+const buyBtn = document.createElement("button");
+buyBtn.classList.add("buy");
+buyBtn.innerHTML = "BUY NOW";
+aside.appendChild(buyBtn);
+
+const clearBtn = document.createElement("button");
+clearBtn.classList.add("clear");
+clearBtn.id = "clear";
+clearBtn.innerHTML = "CLEAR CART";
+aside.appendChild(clearBtn);
+
+// ASIDE EVENTS
+
+clearBtn.addEventListener("click", () => {
+  localStorage.removeItem("cart");
+  
+  const main = document.getElementById("main");
+  main.classList.add("disappear");
+
+  const aside = document.getElementById("aside");
+  aside.classList.add("disappear");
+
+  const addToCart = document.createElement("h1");
+  addToCart.classList.add("addToCart");
+  addToCart.innerHTML="Añade productos al carrito para poder utilizarlo";
+  const footer = document.getElementById("footer");
+  body.insertBefore(addToCart, footer);
+});
+
+
+</script>
 
 <%- include('./partials/footer') %>

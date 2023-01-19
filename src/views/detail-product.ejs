@@ -1,26 +1,69 @@
-<%- include('./partials/head') %>
-<%- include('./partials/header') %>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%= title %></title>
+    <link rel="stylesheet" href="../css/normalize.css" />
+    <link rel="stylesheet" href="../css/detail-product.css" />
+    <script
+      src="https://kit.fontawesome.com/8b39c5593e.js"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
+    <%- include('./partials/header') %>
 
     <main>
-      
       <section class="up">
         <div class="img-cont">
-          <img src="http://kingofeights.com/wp-content/plugins/slider/images/icon-img.png"/>
+          <img src="<%= data.image %>" />
         </div>
         <div class="txt-cont">
-          <h2 class="title">
-            <%- name %>
-          </h2>
-          <p class="desc">
-            <%- description %> 
-          </p>
-          <p class="price">
-            <%- price %>
-          </p>
-          <button class="add">Add to cart</button>
-          </div>
+          <h2 id="name" class="title"><%= data.name %></h2>
+          <p id="id"><%= data.id.toString() %></p>
+          <p class="desc"><%= data.description %></p>
+          <p id="price" class="price">USD $<%= data.price.toString() %></p>
+          <button id="cartBtn" class="add">Add to cart</button>
+        </div>
       </section>
-
     </main>
 
-<%- include('./partials/footer') %> 
+    <script>
+      const cartExists = localStorage.getItem("cart");
+      if (!cartExists) {
+        const cart = [];
+        localStorage.setItem("cart", JSON.stringify(cart));
+      }
+      const cartBtn = document.getElementById("cartBtn");
+
+      cartBtn.addEventListener("click", () => {
+        const name = document.getElementById("name").innerHTML;
+        const pricestr = document.getElementById("price").innerHTML;
+        const price = Number(pricestr.slice(5));
+
+        const product = { name, price, quant: 1 };
+
+        const cartExists = localStorage.getItem("cart");
+        if (!cartExists) {
+          const cart = [];
+          localStorage.setItem("cart", JSON.stringify(cart));
+        } else {
+          const cart = localStorage.getItem("cart");
+          const cartParsed = JSON.parse(cart);
+
+          const found = cartParsed.find(
+            (element) => element.name == product.name
+          );
+
+          if (!found) {
+            cartParsed.push(product);
+            localStorage.setItem("cart", JSON.stringify(cartParsed));
+          }
+        }
+      });
+    </script>
+    <%- include('./partials/footer') %>
+  </body>
+</html>

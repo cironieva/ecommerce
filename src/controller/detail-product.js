@@ -1,30 +1,24 @@
 // REQUIREMENTS
 
-// express-validator
-const {validationResult} = require('express-validator');
+// Models
+const products = require('../../models').products;
 
 
 // CONTROLLERS
 
 // GET detail-product
 const getDpController = (req, res) => {
-  const errors = validationResult(req);
-  if (!errors.isEmpty()) {
-    const error = errors.array()[0].msg;
-    res.render('errors', {css: 'error', title: 'Error', error});
-  } else {
-    
-    const {productSelected} = require('../middleware/detail-product');
-    
-    console.log('productSelected', productSelected);
+  const parsear = (data) => JSON.parse(data);
+  const {id} = req.params;
 
-    const name = productSelected.name;
-    const description = productSelected.description;
-    const price = productSelected.price;
-
-    res.render('detail-product', { css: 'detail-product', title: 'Detail Product', name, description, price});
-  
-  };
+  return products.findOne(
+    { where: { id: id } }
+  )
+  .then(data => JSON.stringify(data))
+  .then(data => parsear(data))
+  .then(data => res.render(
+    'detail-product', { title: 'Detail-product' , data }
+  ));
 };
 
 module.exports = {

@@ -4,9 +4,6 @@
 const {Router} = require('express');
 const router = Router();
 
-// Middleware
-const getDpMiddle = require('../middleware/detail-product');
-
 // Controllers
 const {getDpController} = require('../controller/detail-product');
 
@@ -17,7 +14,6 @@ const {getDpController} = require('../controller/detail-product');
 // get
 router.get(
   '/detail-product/:id',
-  getDpMiddle,
   getDpController
 );
 

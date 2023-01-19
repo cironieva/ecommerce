@@ -1,11 +1,75 @@
 <%- include('./partials/head') %> <%- include('./partials/header') %>
 <main>
-  <form method="post">
-    <input type="text" placeholder="Name" name="name" />
-    <input type="email" placeholder="Email" name="email" />
-    <input type="password" placeholder="Password" name="password" />
+  <form id="form" method="post">
+    <input type="text" id="name" placeholder="Nombre" name="name" />
+    <input type="email" id="email" placeholder="Email" name="email" />
+    <input
+      type="password"
+      id="password"
+      placeholder="Contraseña"
+      name="password"
+    />
     <input type="submit" class="submit" value="Register" />
   </form>
 </main>
 
+<script>
+  const form = document.forms["form"];
+  const name = document.getElementById("name");
+  const email = document.getElementById("email");
+  const password = document.getElementById("password");
+
+  form.addEventListener("submit", (e) => {
+    const errors = [];
+
+    const setError = (message) => {
+      const newError = { Error: message };
+      errors.push(newError);
+    };
+
+    const nameValue = name.value.trim();
+    const emailValue = email.value.trim();
+    const passwordValue = password.value.trim();
+
+    const isValidEmail = (email) => {
+      const re =
+        /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+      return re.test(String(email).toLowerCase());
+    };
+
+    const isValidPassword = (password) => {
+      const re = /^(?=\D*\d)[a-zA-Z0-9 -]+$/;
+      return re.test(String(password).toLowerCase());
+    };
+
+    const validateInputs = () => {
+      if (nameValue === "") {
+        setError("Ingrese un nombre");
+      } else if (nameValue.length < 5) {
+        setError("El nombre debe tener al menos 5 caracteres");
+      }
+
+      if (emailValue === "") {
+        setError("Ingrese un email");
+      } else if (!isValidEmail(emailValue)) {
+        setError("Ese no es un mail válido");
+      }
+
+      if (passwordValue === "") {
+        setError("Introduzca una contraseña");
+      } else if (passwordValue.length < 8) {
+        setError("La contraseña debe tener al menos 8 caracteres");
+      } else if (!isValidPassword(passwordValue)) {
+        setError("La contraseña debe incluir al menos un número");
+      }
+    };
+
+    validateInputs();
+
+    if (errors.length > 0) {
+      e.preventDefault();
+      console.log("Errores:", errors);
+    }
+  });
+</script>
 <%- include('./partials/footer') %>

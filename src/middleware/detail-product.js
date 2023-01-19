@@ -3,12 +3,13 @@
 // express-validator
 const {param} = require('express-validator');
 
-// user list
-const { readProducts } = require('../service/read');
-const productList = readProducts();
+// models
+const products = require('../../models').products
 
 
 // MIDDLEWARE
+
+const productList = products.findAll();
 
 // get detail product
 const getDpMiddle = param('id').custom(value => {

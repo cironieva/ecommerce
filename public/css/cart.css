@@ -56,7 +56,7 @@ a {
 
 main {
   width: 60vw;
-  align-self: center;
+  align-self: flex-start;
   display: flex;
   flex-wrap: wrap;
   margin: 1em;
@@ -69,6 +69,10 @@ section {
   background-color: #2f4b53;
   box-shadow: 0px 0px 3px 0 #000;
   margin: 1em;
+}
+
+.disappear {
+  display: none;
 }
 
 .img-cont {
@@ -111,21 +115,32 @@ img {
 }
 
 aside {
-  width: 100%;
+  width: 20vw;
   display: flex;
   justify-content: center;
   flex-direction: column;
   text-align: center;
+  align-self: flex-end;
+  position: fixed;
+  margin-top: 9vh;
+  margin-right: 15vh;
+  background-color: #2f4b53;
+  box-shadow: 0px 0px 3px 0 #000;
 }
 
-.total {
+.total1 {
   font-weight: bold;
-  font-size: 1.7em;
-  margin: 1em;
+  font-size: 1.5em;
+  margin: 1em 1em;
+}
+
+.total2 {
+  font-weight: bold;
+  font-size: 2.5em;
+  margin: .2em 1em;
 }
 
 .buy {
-  width: 10%;
   align-self: center;
   background-color: var(--primary);
   border: none;
@@ -133,10 +148,33 @@ aside {
   font-weight: bold;
   width: 8em;
   height: 2em;
+  margin-top: 1em;
 }
 
 .buy:hover {
-  background-color: #2f4b53;
+  background-color: #20343a;
+}
+
+.clear {
+  align-self: center;
+  background-color: var(--primary);
+  border: none;
+  font-size: 1.2em;
+  font-weight: bold;
+  width: 7em;
+  height: 1.5em;
+  margin: 1em;
+}
+
+.clear:hover {
+  background-color: #20343a;
+}
+
+.addToCart {
+  font-size: 2em;
+  display: flex;
+  align-self: center;
+  text-align: center;
 }
 
 /* FOOTER */
@@ -194,6 +232,8 @@ footer {
 
   section {
     flex-direction: column;
+    align-self: center;
+    
   }
 
   .img-cont {
@@ -204,6 +244,25 @@ footer {
   .price {
     width: 100%;
     text-align: center;
+  }
+
+  main {
+    width: 60vw;
+    align-self: center;
+  }
+
+  aside {
+    width: 56.5vw;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+    align-self: center;
+    position: relative;
+    background-color: #2f4b53;
+    box-shadow: 0px 0px 3px 0 #000;
+    margin: 0 0 2em 0;
+    padding: 0;
   }
 }
 
@@ -216,5 +275,9 @@ footer {
 
   main {
     width: 100%;
+  }
+
+  aside {
+    width: 93%;
   }
 }

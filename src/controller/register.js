@@ -7,7 +7,7 @@ const {validationResult} = require('express-validator');
 const bcrypt = require('bcryptjs');
 
 // service
-const postLoginService = require('../service/register');
+const postRegisterService = require('../service/register');
 
 
 // CONTROLLERS
@@ -22,13 +22,15 @@ const postRegisterController = (req, res) => {
   const errors = validationResult(req);
   
   if (!errors.isEmpty()) {
+    
     const error = errors.array()[0].msg;
     res.render('errors', {css: 'error', title: 'Error', error});
+  
   } else {
-    const password = bcrypt.hashSync(req.body.password, 10);
+    const hash = bcrypt.hashSync(req.body.password, 10);
     const {name, email} = req.body;
 
-    postLoginService(name, email, password);
+    postRegisterService(name, email, hash);
     
     res.redirect('/');
   };

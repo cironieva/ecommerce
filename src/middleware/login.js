@@ -6,42 +6,39 @@ const {body} = require('express-validator');
 // bcrypt
 const bcrypt = require('bcryptjs');
 
-// user list
-const { readUsers } = require('../service/read');
-const userList = readUsers();
-
+// models
+const users = require('../../models').users;
 
 // MIDDLEWARE
 
 // post login
 const postLoginMiddle = [
   body('email').trim().notEmpty().withMessage('Introduzca su email').isEmail().withMessage('No es un email válido')
-  .custom(value => {  
-    userList.forEach(element => {
-      
-      if (value == element.email) {
-        const userSelected = element;
-        module.exports = userSelected;
-      }
-    });    
-    const userSelected = require('./login');
-    if (value != userSelected.email) {
-      throw new Error(`${value} no es un usuario registrado`);
-    };    
-    return true;
-  }),
+  .custom(async value => {
+    const userSelected = await users.findOne(
+      { where : { email: value} }
+    );
+
+    if (userSelected) {
+      module.exports = {userSelected};
+    }
+
+    else {
+      return Promise.reject();
+    };
+    
+  }).withMessage('Email no registrado'),
+  
   body('password').trim().notEmpty().withMessage('Introduzca su contraseña')
-  .custom(value => {
-    const userSelected = require('./login');    
+  .custom(async value => {
+    const {userSelected} = require('./login');
+    
     const coincide = bcrypt.compareSync(value, userSelected.hash);
 
     if (!coincide) {
-      throw new Error('Contraseña incorrecta');
-    }
-    else {
-      return true;
-    }
-  })
+      return Promise.reject();
+    };
+  }).withMessage('Contraseña incorrecta')
 ];
 
 
